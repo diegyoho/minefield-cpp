@@ -1,14 +1,17 @@
 #pragma once
 
+#include "Position.h"
+
+#include <vector>
+
 class Grid
 {
-
 private:
 
 	int width;
 	int height;
 
-protected:
+	std::vector<Position> positions;
 
 	Grid();
 	~Grid();
