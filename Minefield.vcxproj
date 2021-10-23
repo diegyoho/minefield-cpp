@@ -141,14 +141,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Core\Grid.cpp" />
+    <ClCompile Include="Core\Position.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Position.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Grid.h" />
-    <ClInclude Include="Position.h" />
-    <ClInclude Include="PositionState.h" />
+    <ClInclude Include="Core\Grid.h" />
+    <ClInclude Include="Core\Position.h" />
+    <ClInclude Include="Core\PositionState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

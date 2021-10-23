@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "Core/Grid.h"
 
 #include <iostream>
 
