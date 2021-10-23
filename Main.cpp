@@ -9,7 +9,7 @@ int main()
 	while (!gameOver)
 	{
 		//Temporary Description
-		std::cout << "Welcome to Minefield!\n\n";
+		std::cout << "\n\tWelcome to Minefield!\n\n";
 		std::cout << "Your objective is to reveal the entire\nminefield without any being detonated.\n\n";
 		std::cout << "Below is the caption of each symbol:\n\n";
 
@@ -38,7 +38,7 @@ int main()
 	Grid::GetSingleton()->Draw();
 
 	std::cout << "\n\nYou hit a mine, game over!\n";
-	std::cout << "Thank you for playing.";
+	std::cout << "Thank you for playing.\n";
 
 	return 0;
 }

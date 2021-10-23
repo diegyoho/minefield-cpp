@@ -4,9 +4,11 @@
 
 #include <iostream>
 
-Position::Position() :
-	minesAround(-1),
-	state(static_cast<PositionState>(0))
+Position::Position(int x, int y) :
+	state(static_cast<PositionState>(0)),
+	minesAround(0),
+	x(x),
+	y(y)
 {
 }
 
@@ -64,4 +66,19 @@ void Position::SetFlag(bool setFlag)
 	{
 		state &= ~PositionState::Flagged;
 	}
+}
+
+int& Position::GetMinesAround()
+{
+	return minesAround;
+}
+
+const int& Position::GetX() const
+{
+	return x;
+}
+
+const int& Position::GetY() const
+{
+	return y;
 }

@@ -49,6 +49,10 @@ void Grid::Draw() const
 					{
 						std::cout << "[*]";
 					}
+					else if(position->GetMinesAround() > 0)
+					{
+						std::cout << "[" << position->GetMinesAround() << "]";
+					}
 					else
 					{
 						std::cout << "[ ]";
@@ -64,6 +68,12 @@ void Grid::Draw() const
 bool Grid::OpenPosition(int x, int y) const
 {
 	Position* position = positions[CoordsToVectorPosition(x, y)];
+	
+	if (position->IsOpened())
+	{
+		return true;
+	}
+
 	position->SetOpen(true);
 
 	if (position->IsHiddingAMine())
@@ -72,17 +82,39 @@ bool Grid::OpenPosition(int x, int y) const
 		return false;
 	}
 
+	std::vector<Position*> positionsAround;
+
 	for (int j = -1; j < 2; ++j)
 	{
 		for (int i = -1; i < 2; ++i)
 		{
-			if (i == 0 && i == j)
+			int _x = x + i;
+			int _y = y + j;
+
+			
+			if (_x < 0 || _x >= width || _y < 0 || _y >= height || (_x == x && _y == y) || positions[CoordsToVectorPosition(_x, _y)]->IsOpened())
 			{
 				continue;
 			}
+			
+			Position* positionAround = positions[CoordsToVectorPosition(_x, _y)];
 
-			int _x = x + i;
-			int _y = y + i;
+			if (positionAround->IsHiddingAMine())
+			{
+				position->GetMinesAround()++;
+			}
+			else
+			{
+				positionsAround.push_back(positionAround);
+			}
+		}
+	}
+
+	if (position->GetMinesAround() == 0)
+	{
+		for (Position* positionAround : positionsAround)
+		{
+			OpenPosition(positionAround->GetX(), positionAround->GetY());
 		}
 	}
 
@@ -95,6 +127,7 @@ void Grid::OpenAll() const
 	{
 		positions[i]->SetOpen(true);
 		positions[i]->SetFlag(false);
+		positions[i]->GetMinesAround() = 0;
 	}
 }
 
@@ -105,7 +138,7 @@ Grid::Grid() :
 {
 	for (int i = 0; i < width * height; ++i)
 	{
-		positions.push_back(new Position());
+		positions.push_back(new Position(i % width, i / width));
 	}
 
 	for (int i = 0; i < numberOfMines; ++i)

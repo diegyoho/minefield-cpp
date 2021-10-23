@@ -6,12 +6,14 @@ class Position
 {
 private:
 
-	int minesAround;
 	PositionState state;
+	int minesAround;
+	int x;
+	int y;
 
 public:
-
-	Position();
+	
+	Position(int x, int y);
 	~Position();
 
 	bool IsOpened() const;
@@ -21,5 +23,10 @@ public:
 	void SetOpen(bool open);
 	void SetMine(bool hasMine);
 	void SetFlag(bool setFlag);
+
+	int& GetMinesAround();
+
+	const int& GetX() const;
+	const int& GetY() const;
 };
 

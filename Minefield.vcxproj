@@ -149,7 +149,7 @@
     <ClInclude Include="Core\Grid.h" />
     <ClInclude Include="Core\Position.h" />
     <ClInclude Include="Core\PositionState.h" />
-    <ClInclude Include="Random.h" />
+    <ClInclude Include="Core\Random.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
