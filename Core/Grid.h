@@ -11,7 +11,7 @@ private:
 	int width;
 	int height;
 
-	std::vector<Position> positions;
+	std::vector<Position*> positions;
 
 	Grid();
 	~Grid();

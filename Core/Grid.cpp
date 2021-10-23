@@ -1,5 +1,7 @@
 #include "Grid.h"
 
+#include "Random.h"
+
 #include <iostream>
 
 Grid* Grid::GetSingleton()
@@ -33,7 +35,7 @@ void Grid::Draw() const
 				}
 				else
 				{
-					std::cout << "[?]";
+					std::cout << (positions[((i-1) * (j-1)) + (i-1)]->IsHiddingAMine() ? "[*]" : "[?]");
 				}
 			}
 		}
@@ -46,6 +48,11 @@ Grid::Grid() :
 	width(10),
 	height(10)
 {
+	for (int i = 0; i < 10 * 10; ++i)
+	{
+		positions.push_back(new Position());
+		positions[i]->SetMine(Random::RangeInt(0, 1) == 0);
+	}
 }
 
 Grid::~Grid()

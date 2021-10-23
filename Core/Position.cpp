@@ -6,7 +6,7 @@
 
 Position::Position() :
 	minesAround(-1),
-	state()
+	state(static_cast<PositionState>(0))
 {
 }
 

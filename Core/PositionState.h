@@ -24,12 +24,12 @@ inline PositionState operator&(const PositionState& lFlag, const PositionState& 
 	return static_cast<PositionState>(static_cast<char>(lFlag) & static_cast<char>(rFlag));
 }
 
-inline PositionState operator|=(const PositionState& lFlag, const PositionState& rFlag)
+inline PositionState& operator|=(PositionState& lFlag, PositionState rFlag)
 {
-	return static_cast<PositionState>(static_cast<char>(lFlag) | static_cast<char>(rFlag));
+	return lFlag = static_cast<PositionState>(static_cast<char>(lFlag) | static_cast<char>(rFlag));
 }
 
-inline PositionState operator&=(const PositionState& lFlag, const PositionState& rFlag)
+inline PositionState& operator&=(PositionState& lFlag, PositionState rFlag)
 {
-	return static_cast<PositionState>(static_cast<char>(lFlag) & static_cast<char>(rFlag));
+	return lFlag = static_cast<PositionState>(static_cast<char>(lFlag) & static_cast<char>(rFlag));
 }
