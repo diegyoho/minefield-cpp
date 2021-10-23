@@ -4,7 +4,9 @@
 
 int main()
 {
-	while (true)
+	bool gameOver = false;
+
+	while (!gameOver)
 	{
 		//Temporary Description
 		std::cout << "Welcome to Minefield!\n\n";
@@ -28,8 +30,15 @@ int main()
 
 		system("cls");
 
-		Grid::GetSingleton()->OpenPosition(x, y);
+		gameOver = !Grid::GetSingleton()->OpenPosition(x, y);
 	}
+
+	std::cout << "\n\tBOOOOMMMMMMM!\n\n";
+
+	Grid::GetSingleton()->Draw();
+
+	std::cout << "\n\nYou hit a mine, game over!\n";
+	std::cout << "Thank you for playing.";
 
 	return 0;
 }

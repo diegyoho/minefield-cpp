@@ -61,7 +61,7 @@ void Grid::Draw() const
 	}
 }
 
-void Grid::OpenPosition(int x, int y) const
+bool Grid::OpenPosition(int x, int y) const
 {
 	Position* position = positions[CoordsToVectorPosition(x, y)];
 	position->SetOpen(true);
@@ -69,7 +69,7 @@ void Grid::OpenPosition(int x, int y) const
 	if (position->IsHiddingAMine())
 	{
 		OpenAll();
-		return;
+		return false;
 	}
 
 	for (int j = -1; j < 2; ++j)
@@ -85,6 +85,8 @@ void Grid::OpenPosition(int x, int y) const
 			int _y = y + i;
 		}
 	}
+
+	return true;
 }
 
 void Grid::OpenAll() const

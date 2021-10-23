@@ -34,7 +34,7 @@ public:
 
 	void Draw() const;
 
-	void OpenPosition(int x, int y) const;
+	bool OpenPosition(int x, int y) const;
 	void OpenAll() const;
 };
 
