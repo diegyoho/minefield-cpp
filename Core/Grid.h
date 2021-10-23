@@ -10,11 +10,14 @@ private:
 
 	int width;
 	int height;
+	int numberOfMines;
 
 	std::vector<Position*> positions;
 
 	Grid();
 	~Grid();
+
+	int CoordsToVectorPosition(int x, int y) const;
 
 public:
 
@@ -31,5 +34,7 @@ public:
 
 	void Draw() const;
 
+	void OpenPosition(int x, int y) const;
+	void OpenAll() const;
 };
 

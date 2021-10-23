@@ -16,26 +16,43 @@ void Grid::Draw() const
 	{
 		for (int i = 0; i <= width; ++i)
 		{
+			int x = i - 1;
+			int y = j - 1;
+			
+
 			if (j == 0)
 			{
 				if (i == 0)
 				{
-					std::cout << " X ";
+					std::cout << "   ";
 				}
 				else
 				{
-					std::cout << ' ' << i - 1 << ' ';
+					std::cout << ' ' << x << ' ';
 				}
 			}
 			else
 			{
 				if (i == 0)
 				{
-					std::cout << ' ' << j - 1 << ' ';
+					std::cout << ' ' << y << ' ';
 				}
 				else
 				{
-					std::cout << (positions[((i-1) * (j-1)) + (i-1)]->IsHiddingAMine() ? "[*]" : "[?]");
+					Position* position = positions[CoordsToVectorPosition(x, y)];
+					
+					if (!position->IsOpened())
+					{
+						std::cout << (position->IsFlagged() ? "[F]" : "[?]");
+					}
+					else if (position->IsHiddingAMine())
+					{
+						std::cout << "[*]";
+					}
+					else
+					{
+						std::cout << "[ ]";
+					}
 				}
 			}
 		}
@@ -44,18 +61,72 @@ void Grid::Draw() const
 	}
 }
 
+void Grid::OpenPosition(int x, int y) const
+{
+	Position* position = positions[CoordsToVectorPosition(x, y)];
+	position->SetOpen(true);
+
+	if (position->IsHiddingAMine())
+	{
+		OpenAll();
+		return;
+	}
+
+	for (int j = -1; j < 2; ++j)
+	{
+		for (int i = -1; i < 2; ++i)
+		{
+			if (i == 0 && i == j)
+			{
+				continue;
+			}
+
+			int _x = x + i;
+			int _y = y + i;
+		}
+	}
+}
+
+void Grid::OpenAll() const
+{
+	for (int i = 0; i < width * height; ++i)
+	{
+		positions[i]->SetOpen(true);
+		positions[i]->SetFlag(false);
+	}
+}
+
 Grid::Grid() :
 	width(10),
-	height(10)
+	height(10),
+	numberOfMines(10)
 {
-	for (int i = 0; i < 10 * 10; ++i)
+	for (int i = 0; i < width * height; ++i)
 	{
 		positions.push_back(new Position());
-		positions[i]->SetMine(Random::RangeInt(0, 1) == 0);
+	}
+
+	for (int i = 0; i < numberOfMines; ++i)
+	{
+		int position = Random::RangeInt(0, width * height - 1);
+		
+		if (!positions[position]->IsHiddingAMine())
+		{
+			positions[position]->SetMine(true);
+		}
+		else
+		{
+			--i;
+		}
 	}
 }
 
 Grid::~Grid()
 {
 	std::cout << "Grid destroyed!\n";
+}
+
+int Grid::CoordsToVectorPosition(int x, int y) const
+{
+	return width * y + x;
 }

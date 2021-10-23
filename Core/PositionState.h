@@ -4,7 +4,7 @@ enum class PositionState : char
 {
 	Opened = 0x01,
 	HiddenMine = 0x02,
-	Flagged = 0x03
+	Flagged = 0x04
 };
 
 //Bitwise operator overloading for enum class PositionState

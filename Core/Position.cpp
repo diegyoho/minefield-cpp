@@ -17,17 +17,17 @@ Position::~Position()
 
 bool Position::IsOpened() const
 {
-	return static_cast<char>(state & PositionState::Opened);
+	return (state & PositionState::Opened) == PositionState::Opened;
 }
 
 bool Position::IsHiddingAMine() const
 {
-	return static_cast<char>(state & PositionState::HiddenMine);
+	return (state & PositionState::HiddenMine) == PositionState::HiddenMine;
 }
 
 bool Position::IsFlagged() const
 {
-	return static_cast<char>(state & PositionState::Flagged);
+	return (state & PositionState::Flagged) == PositionState::Flagged;
 }
 
 void Position::SetOpen(bool open)
