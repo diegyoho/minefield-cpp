@@ -18,7 +18,7 @@ void Grid::Draw() const
 			{
 				if (i == 0)
 				{
-					std::cout << "   ";
+					std::cout << " X ";
 				}
 				else
 				{
@@ -33,7 +33,7 @@ void Grid::Draw() const
 				}
 				else
 				{
-					std::cout << "[ ]";
+					std::cout << "[?]";
 				}
 			}
 		}
