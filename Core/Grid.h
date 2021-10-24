@@ -11,6 +11,7 @@ private:
 	int width;
 	int height;
 	int numberOfMines;
+	mutable int numberOfPositionsOpened;
 
 	std::vector<Position*> positions;
 
@@ -18,6 +19,7 @@ private:
 	~Grid();
 
 	int CoordsToVectorPosition(int x, int y) const;
+	void OpenAll() const;
 
 public:
 
@@ -35,6 +37,7 @@ public:
 	void Draw() const;
 
 	bool OpenPosition(int x, int y) const;
-	void OpenAll() const;
+
+	bool IsAllMinesRevealed() const;
 };
 

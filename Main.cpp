@@ -5,8 +5,9 @@
 int main()
 {
 	bool gameOver = false;
+	bool winner = false;
 
-	while (!gameOver)
+	while (!(gameOver || winner))
 	{
 		//Temporary Description
 		std::cout << "\n\tWelcome to Minefield!\n\n";
@@ -31,14 +32,27 @@ int main()
 		system("cls");
 
 		gameOver = !Grid::GetSingleton()->OpenPosition(x, y);
+		winner = Grid::GetSingleton()->IsAllMinesRevealed();
 	}
 
-	std::cout << "\n\tBOOOOMMMMMMM!\n\n";
+	if (winner)
+	{
+		std::cout << "\n\tCONGRATULATIONS!\n\n";
 
-	Grid::GetSingleton()->Draw();
+		Grid::GetSingleton()->Draw();
 
-	std::cout << "\n\nYou hit a mine, game over!\n";
+		std::cout << "\n\nYou revealed all mines!\n";
+	}
+	else
+	{
+		std::cout << "\n\tBOOOOMMMMMMM!\n\n";
+
+		Grid::GetSingleton()->Draw();
+
+		std::cout << "\n\nYou hit a mine, game over!\n";
+	}
+
 	std::cout << "Thank you for playing.\n";
-
+	
 	return 0;
 }

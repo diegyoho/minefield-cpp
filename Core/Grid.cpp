@@ -75,6 +75,7 @@ bool Grid::OpenPosition(int x, int y) const
 	}
 
 	position->SetOpen(true);
+	numberOfPositionsOpened++;
 
 	if (position->IsHiddingAMine())
 	{
@@ -92,20 +93,23 @@ bool Grid::OpenPosition(int x, int y) const
 			int _y = y + j;
 
 			
-			if (_x < 0 || _x >= width || _y < 0 || _y >= height || (_x == x && _y == y) || positions[CoordsToVectorPosition(_x, _y)]->IsOpened())
+			if (_x < 0 || _x >= width || _y < 0 || _y >= height || (_x == x && _y == y))
 			{
 				continue;
 			}
 			
 			Position* positionAround = positions[CoordsToVectorPosition(_x, _y)];
-
-			if (positionAround->IsHiddingAMine())
+			
+			if (!positionAround->IsOpened())
 			{
-				position->GetMinesAround()++;
-			}
-			else
-			{
-				positionsAround.push_back(positionAround);
+				if (positionAround->IsHiddingAMine())
+				{
+					position->GetMinesAround()++;
+				}
+				else
+				{
+					positionsAround.push_back(positionAround);
+				}
 			}
 		}
 	}
@@ -123,18 +127,31 @@ bool Grid::OpenPosition(int x, int y) const
 
 void Grid::OpenAll() const
 {
-	for (int i = 0; i < width * height; ++i)
+	for (Position* position : positions)
 	{
-		positions[i]->SetOpen(true);
-		positions[i]->SetFlag(false);
-		positions[i]->GetMinesAround() = 0;
+		position->SetOpen(true);
+		position->SetFlag(false);
+		position->GetMinesAround() = 0;
 	}
+}
+
+bool Grid::IsAllMinesRevealed() const
+{
+	bool winner = (width * height) - numberOfPositionsOpened == numberOfMines;
+	
+	if (winner)
+	{
+		OpenAll();
+	}
+
+	return winner;
 }
 
 Grid::Grid() :
 	width(10),
 	height(10),
-	numberOfMines(10)
+	numberOfMines(10),
+	numberOfPositionsOpened(0)
 {
 	for (int i = 0; i < width * height; ++i)
 	{
