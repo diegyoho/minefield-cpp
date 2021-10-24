@@ -1,11 +1,15 @@
 #include "Core/Grid.h"
 
+#include <conio.h>
 #include <iostream>
 
 int main()
 {
 	bool gameOver = false;
 	bool winner = false;
+	
+	int positionX{ 0 };
+	int positionY{ 0 };
 
 	while (!(gameOver || winner))
 	{
@@ -20,19 +24,61 @@ int main()
 		std::cout << "[*] : Mine! Boom!\n";
 		std::cout << "[F] : Flag!\n\n";
 
-		Grid::GetSingleton()->Draw();
+		Grid::GetSingleton()->Draw(positionX, positionY);
 
-		std::cout << "\n\nInsert a position (X, Y) to open,\nseparated by spaces: ";
+		/*std::cout << "\n\nInsert a position (X, Y) to open,\nseparated by spaces: ";
 
 		int x{};
 		int y{};
 
-		std::cin >> x >> y;
+		std::cin >> x >> y;*/
+
+		std::cout << "\n\nPress (W|A|S|D) to move (" << positionX << ", " << positionY << ")\n";
+		std::cout << "Press (O) to open (" << positionX << ", " << positionY << ")\n";
+		std::cout << "Press (F) to flag (" << positionX << ", " << positionY << ")\n";
+
+		char key = _getch();
+
+		switch (key)
+		{
+			case 'w':
+				if (positionY > 0)
+				{
+					--positionY;
+				}
+				break;
+			case 'a':
+				if (positionX > 0)
+				{
+					--positionX;
+				}
+				break;
+			case 's':
+				if (positionY < Grid::GetSingleton()->GetHeight() - 1)
+				{
+					++positionY;
+				}
+				break;
+			case 'd':
+				if (positionX < Grid::GetSingleton()->GetHeight() - 1)
+				{
+					++positionX;
+				}
+				break;
+			case 'o':
+				gameOver = !Grid::GetSingleton()->OpenPosition(positionX, positionY);
+				winner = Grid::GetSingleton()->IsAllMinesRevealed();
+				break;
+			case 'f':
+				Grid::GetSingleton()->FlagPosition(positionX, positionY);
+				break;
+			default:
+				break;
+		}
 
 		system("cls");
 
-		gameOver = !Grid::GetSingleton()->OpenPosition(x, y);
-		winner = Grid::GetSingleton()->IsAllMinesRevealed();
+		/**/
 	}
 
 	if (winner)

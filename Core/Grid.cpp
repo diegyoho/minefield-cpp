@@ -10,7 +10,7 @@ Grid* Grid::GetSingleton()
 	return grid;
 }
 
-void Grid::Draw() const
+void Grid::Draw(const int selectedX, const int selectedY) const
 {
 	for (int j = 0; j <= height; ++j)
 	{
@@ -43,19 +43,47 @@ void Grid::Draw() const
 					
 					if (!position->IsOpened())
 					{
-						std::cout << (position->IsFlagged() ? "[F]" : "[?]");
+						if (selectedX == x && selectedY == y)
+						{
+							std::cout << (position->IsFlagged() ? "[F]" : "[?]");
+						}
+						else
+						{
+							std::cout << (position->IsFlagged() ? " F " : " ? ");
+						}
 					}
 					else if (position->IsHiddingAMine())
 					{
-						std::cout << "[*]";
+						if (selectedX == x && selectedY == y)
+						{
+							std::cout << "[*]";
+						}
+						else
+						{
+							std::cout << " * ";
+						}
 					}
 					else if(position->GetMinesAround() > 0)
 					{
-						std::cout << "[" << position->GetMinesAround() << "]";
+						if (selectedX == x && selectedY == y)
+						{
+							std::cout << "[" << position->GetMinesAround() << "]";
+						}
+						else
+						{
+							std::cout << " " << position->GetMinesAround() << " ";
+						}
 					}
 					else
 					{
-						std::cout << "[ ]";
+						if (selectedX == x && selectedY == y)
+						{
+							std::cout << "[ ]";
+						}
+						else
+						{
+							std::cout << "   ";
+						}
 					}
 				}
 			}
@@ -125,6 +153,12 @@ bool Grid::OpenPosition(int x, int y) const
 	return true;
 }
 
+void Grid::FlagPosition(int x, int y) const
+{
+	Position* position = positions[CoordsToVectorPosition(x, y)];
+	position->SetFlag(!position->IsFlagged());
+}
+
 void Grid::OpenAll() const
 {
 	for (Position* position : positions)
@@ -145,6 +179,16 @@ bool Grid::IsAllMinesRevealed() const
 	}
 
 	return winner;
+}
+
+const int& Grid::GetWidth() const
+{
+	return width;
+}
+
+const int& Grid::GetHeight() const
+{
+	return height;
 }
 
 Grid::Grid() :

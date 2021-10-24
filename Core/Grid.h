@@ -34,10 +34,14 @@ public:
 	 */
 	void operator=(const Grid&) = delete;
 
-	void Draw() const;
+	void Draw(const int selectedX = -1, const int selectedY = -1) const;
 
 	bool OpenPosition(int x, int y) const;
+	void FlagPosition(int x, int y) const;
 
 	bool IsAllMinesRevealed() const;
+
+	const int& GetWidth() const;
+	const int& GetHeight() const;
 };
 
