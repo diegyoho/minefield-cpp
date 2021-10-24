@@ -37,24 +37,46 @@ void GameManager::ShowDescription() const
 
 void GameManager::InitGame()
 {
+	gameEnded = false;
+	selectedX = 0;
+	selectedY = 0;
+
 	system("cls");
 
-	Grid::Initialize(10, 10, 10);
+	ShowDescription();
+
+	int width{ 10 };
+	int height{ 10 };
+	int numberOfMines{ 10 };
+
+	std::cout << "Want to customize the game? Press (y/n)\n";
+
+	char key = _getch();
+
+	if (key == 'y')
+	{
+		std::cout << "\nEnter the grid dimensions,\nseparated by space (E.g. 10 10): ";
+		std::cin >> width >> height;
+		std::cout << "\nEnter the number of mines: ";
+		std::cin >> numberOfMines;
+	}
+
+	Grid::Initialize(width, height, numberOfMines);
 
 	while (!gameEnded)
 	{
+		system("cls");
+
 		ShowDescription();
 
 		Grid::GetSingleton()->Draw(selectedX, selectedY);
 
 		HandleInput();
-
-		system("cls");
 	}
 
+	system("cls");
+	
 	GameOver();
-
-	std::cout << "\n\nThank you for playing.\n";
 }
 
 void GameManager::HandleInput()

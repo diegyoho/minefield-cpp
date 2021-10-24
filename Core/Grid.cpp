@@ -98,6 +98,7 @@ void Grid::Initialize(const int& width, const int& height, const int& numberOfMi
 	GetSingleton()->width = width;
 	GetSingleton()->height = height;
 	GetSingleton()->numberOfMines = numberOfMines;
+	GetSingleton()->numberOfPositionsOpened = 0;
 
 	GetSingleton()->positions.clear();
 
