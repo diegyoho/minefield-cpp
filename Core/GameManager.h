@@ -4,8 +4,11 @@ class GameManager
 {
 private:
 	
+	// Variables that indicate the selected position
 	int selectedX;
 	int selectedY;
+
+	// Keep the state if the game is over
 	bool gameEnded;
 
 	GameManager();

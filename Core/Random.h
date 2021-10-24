@@ -2,6 +2,7 @@
 
 #include <random>
 
+// Basic Utility Functions for Random Values
 namespace Random
 {
 	static std::mt19937 mersenneTwisterRand(std::mt19937::default_seed);

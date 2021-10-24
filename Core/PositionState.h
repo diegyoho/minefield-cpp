@@ -1,5 +1,6 @@
 #pragma once
 
+// Enum to indicate the status of each position
 enum class PositionState : char
 {
 	Opened = 0x01,
@@ -7,7 +8,7 @@ enum class PositionState : char
 	Flagged = 0x04
 };
 
-//Bitwise operator overloading for enum class PositionState
+// Bitwise operator overloading for enum class PositionState
 
 inline PositionState operator~(const PositionState& flag)
 {

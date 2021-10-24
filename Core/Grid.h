@@ -18,7 +18,7 @@ private:
 	Grid();
 	~Grid();
 
-	int CoordsToVectorPosition(int x, int y) const;
+	int CoordsToVectorPosition(const int& x, const int& y) const;
 	void OpenAll() const;
 
 public:

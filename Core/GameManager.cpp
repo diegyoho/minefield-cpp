@@ -45,10 +45,13 @@ void GameManager::InitGame()
 
 	ShowDescription();
 
+	// Game default values
 	int width{ 10 };
 	int height{ 10 };
 	int numberOfMines{ 10 };
 
+
+	// Game customization
 	std::cout << "Want to customize the game? Press (y/n)\n";
 
 	char key = _getch();

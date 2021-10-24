@@ -10,6 +10,7 @@ Grid* Grid::GetSingleton()
 	return grid;
 }
 
+// Shows grid and selected position
 void Grid::Draw(const int selectedX, const int selectedY) const
 {
 	for (int j = 0; j <= height; ++j)
@@ -93,6 +94,7 @@ void Grid::Draw(const int selectedX, const int selectedY) const
 	}
 }
 
+// Initializes the grid with the given values
 void Grid::Initialize(const int& width, const int& height, const int& numberOfMines)
 {
 	GetSingleton()->width = width;
@@ -122,6 +124,7 @@ void Grid::Initialize(const int& width, const int& height, const int& numberOfMi
 	}
 }
 
+// Check if there is a mine in the position, returns true if position has no mine
 bool Grid::OpenPosition(int x, int y) const
 {
 	Position* position = positions[CoordsToVectorPosition(x, y)];
@@ -182,6 +185,7 @@ bool Grid::OpenPosition(int x, int y) const
 	return true;
 }
 
+// Put/Remove flag
 void Grid::FlagPosition(int x, int y) const
 {
 	Position* position = positions[CoordsToVectorPosition(x, y)];
@@ -198,6 +202,7 @@ void Grid::OpenAll() const
 	}
 }
 
+// Function that validates victory
 bool Grid::IsAllMinesRevealed() const
 {
 	bool winner = (width * height) - numberOfPositionsOpened == numberOfMines;
@@ -233,7 +238,9 @@ Grid::~Grid()
 	std::cout << "Grid destroyed!\n";
 }
 
-int Grid::CoordsToVectorPosition(int x, int y) const
+/* As the grid is not structured in a multidimensional array,
+ * this function calculates the index for the given coordinates */
+int Grid::CoordsToVectorPosition(const int& x, const int& y) const
 {
 	return width * y + x;
 }

@@ -5,7 +5,9 @@
 
 int main()
 {
-	char key{};
+	char key{}; // Key to check if you want to play again after you finish
+
+	// Starting the game
 	do
 	{
 		GameManager::GetSingleton()->InitGame();
