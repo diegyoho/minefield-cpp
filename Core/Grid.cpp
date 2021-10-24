@@ -93,6 +93,34 @@ void Grid::Draw(const int selectedX, const int selectedY) const
 	}
 }
 
+void Grid::Initialize(const int& width, const int& height, const int& numberOfMines)
+{
+	GetSingleton()->width = width;
+	GetSingleton()->height = height;
+	GetSingleton()->numberOfMines = numberOfMines;
+
+	GetSingleton()->positions.clear();
+
+	for (int i = 0; i < width * height; ++i)
+	{
+		GetSingleton()->positions.push_back(new Position(i % width, i / width));
+	}
+
+	for (int i = 0; i < numberOfMines; ++i)
+	{
+		int position = Random::RangeInt(0, width * height - 1);
+
+		if (!GetSingleton()->positions[position]->IsHiddingAMine())
+		{
+			GetSingleton()->positions[position]->SetMine(true);
+		}
+		else
+		{
+			--i;
+		}
+	}
+}
+
 bool Grid::OpenPosition(int x, int y) const
 {
 	Position* position = positions[CoordsToVectorPosition(x, y)];
@@ -192,29 +220,11 @@ const int& Grid::GetHeight() const
 }
 
 Grid::Grid() :
-	width(10),
-	height(10),
-	numberOfMines(10),
+	width(0),
+	height(0),
+	numberOfMines(0),
 	numberOfPositionsOpened(0)
 {
-	for (int i = 0; i < width * height; ++i)
-	{
-		positions.push_back(new Position(i % width, i / width));
-	}
-
-	for (int i = 0; i < numberOfMines; ++i)
-	{
-		int position = Random::RangeInt(0, width * height - 1);
-		
-		if (!positions[position]->IsHiddingAMine())
-		{
-			positions[position]->SetMine(true);
-		}
-		else
-		{
-			--i;
-		}
-	}
 }
 
 Grid::~Grid()

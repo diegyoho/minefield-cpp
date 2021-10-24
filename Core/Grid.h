@@ -34,6 +34,8 @@ public:
 	 */
 	void operator=(const Grid&) = delete;
 
+	static void Initialize(const int& width, const int& height, const int& numberOfMines);
+
 	void Draw(const int selectedX = -1, const int selectedY = -1) const;
 
 	bool OpenPosition(int x, int y) const;

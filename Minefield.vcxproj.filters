@@ -24,6 +24,9 @@
     <ClCompile Include="Core\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Grid.h">
@@ -35,7 +38,10 @@
     <ClInclude Include="Core\PositionState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Random.h">
+    <ClInclude Include="Core\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
